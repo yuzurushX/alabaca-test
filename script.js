@@ -9,18 +9,21 @@
     });
   }
 
-  // Optional: Close other details when one opens
-  const accordion = document.querySelector('[data-accordion]');
-  if (accordion){
-    accordion.addEventListener('toggle', (e) => {
-      const target = e.target;
-      if(target.tagName === 'DETAILS' && target.open){
-        accordion.querySelectorAll('details').forEach(d => {
-          if(d !== target) d.removeAttribute('open');
-        });
+  // FAQ toggle
+  document.querySelectorAll('.question-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const question = header.closest('.faq-question');
+      const wasActive = question.classList.contains('active');
+      
+      // Close all questions first
+      document.querySelectorAll('.faq-question').forEach(q => {
+        q.classList.remove('active');
+      });
+      
+      // Then open the clicked one if it wasn't active
+      if (!wasActive) {
+        question.classList.add('active');
       }
-    }, true);
-  }
+    });
+  });
 })();
-
-
